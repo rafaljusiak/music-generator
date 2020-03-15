@@ -14,5 +14,3 @@ pre-push:
       run: docker-compose run --rm backend black . --check
     flake8:
       run: docker-compose run --rm backend flake8 .
-    tests:
-      run: docker-compose run --rm pytest tests/

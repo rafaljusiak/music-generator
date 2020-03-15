@@ -15,8 +15,9 @@ from env_loader import load_env, EnvTypes
 
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
-BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-env = load_env(BASE_DIR, env_type=EnvTypes.DEFAULT_ENV)
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+ROOT_DIR = os.path.dirname(BASE_DIR)
+env = load_env(ROOT_DIR, env_type=EnvTypes.DEVELOPMENT_ENV)
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/2.1/howto/deployment/checklist/
@@ -42,8 +43,8 @@ DJANGO_APPS = [
 ]
 
 PROJECT_APPS = [
-    "music_generator.music",
-    "music_generator.tracks",
+    "music_generator.core",
+    "music_generator.songs",
 ]
 
 INSTALLED_APPS = DJANGO_APPS + PROJECT_APPS
@@ -63,8 +64,8 @@ ROOT_URLCONF = "music_generator.urls"
 TEMPLATES = [
     {
         "BACKEND": "django.template.backends.django.DjangoTemplates",
-        "DIRS": [],
-        "APP_DIRS": True,
+        "DIRS": [os.path.join(BASE_DIR, "templates")],
+        "APP_DIRS": False,
         "OPTIONS": {
             "context_processors": [
                 "django.template.context_processors.debug",
@@ -124,3 +125,6 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/2.1/howto/static-files/
 
 STATIC_URL = "/static/"
+STATICFILES_DIRS = [
+    os.path.join(BASE_DIR, "static"),
+]

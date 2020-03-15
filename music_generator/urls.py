@@ -16,6 +16,9 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 
+import music_generator.songs.views
+
 urlpatterns = [
     path("admin/", admin.site.urls),
+    path("", music_generator.songs.views.SongView.as_view(), name="song"),
 ]

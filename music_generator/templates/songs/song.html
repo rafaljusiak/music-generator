@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <button onclick="play();">Play</button>
+{% endblock %}
+
+{% block script %}
+    <script>
+        function play() {
+            Tone.start();
+            const part = new Tone.Part(function(time, value){
+                synth.triggerAttackRelease(value.note, "8n", time, value.velocity);
+            }, {{ track_synth|safe }});
+            part.start();
+            Tone.Transport.start();
+        }
+    </script>
+{% endblock %}
