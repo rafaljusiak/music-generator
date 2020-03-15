@@ -18,6 +18,11 @@ def stop(c):
 
 @task
 def shell(c):
+    c.run("docker-compose run --rm backend sh")
+
+
+@task
+def python_shell(c):
     c.run("docker-compose run --rm backend python manage.py shell -i ipython", pty=True)
 
 
