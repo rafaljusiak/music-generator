@@ -11,9 +11,15 @@ class ScaleTypes(Enum):
     MONOTONIC = "monotonic"
 
 
+SCALE_TYPES_CHOICES = [(t, t.value) for t in ScaleTypes]
+
+
 class NoteDurations(Enum):
     WHOLE_NOTE = 64
     HALF_NOTE = 32
     QUARTER_NOTE = 16
     EIGHTH_NOTE = 8
     SIXTEENTH_NOTE = 4
+
+
+NOTE_DURATIONS_CHOICES = [(t.value, t) for t in NoteDurations]

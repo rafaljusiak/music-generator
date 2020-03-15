@@ -2,10 +2,12 @@ from music_generator.core.enums import NoteDurations
 
 
 def get_notes_durations(
-    tempo, shortest=NoteDurations.SIXTEENTH_NOTE, longest=NoteDurations.WHOLE_NOTE
+    tempo,
+    shortest=NoteDurations.SIXTEENTH_NOTE.value,
+    longest=NoteDurations.WHOLE_NOTE.value,
 ):
     durations = []
     for d in NoteDurations:
-        if longest.value >= d.value >= shortest.value:
+        if longest >= d.value >= shortest:
             durations.append(d.value / tempo)
     return durations

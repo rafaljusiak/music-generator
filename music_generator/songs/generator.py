@@ -14,7 +14,7 @@ def create_track(
     length=8,
     min_octave=4,
     max_octave=4,
-    longest_note=NoteDurations.QUARTER_NOTE,
+    longest_note=NoteDurations.HALF_NOTE,
     shortest_note=NoteDurations.EIGHTH_NOTE,
     tempo=60,  # whole notes per minute
 ):

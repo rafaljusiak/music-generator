@@ -1,6 +1,6 @@
 from django.db import models
 
-from music_generator.core.enums import ScaleTypes
+from music_generator.core.enums import SCALE_TYPES_CHOICES
 
 
 class Note(models.Model):
@@ -27,7 +27,7 @@ class Scale(models.Model):
     )
     name = models.CharField(verbose_name="Name", max_length=64, unique=True)
     scale_type = models.CharField(
-        verbose_name="Type", max_length=32, choices=[(t, t.value) for t in ScaleTypes]
+        verbose_name="Type", max_length=32, choices=SCALE_TYPES_CHOICES
     )
 
     def __str__(self):
