@@ -2,6 +2,12 @@
 
 {% block content %}
     <button onclick="play();">Play</button>
+
+    <ul>
+    {% for note in track_synth %}
+        <li>{{ note.note }} {{ note.time }}</li>
+    {% endfor %}
+    </ul>
 {% endblock %}
 
 {% block script %}
