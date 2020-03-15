@@ -11,6 +11,13 @@ class SongView(generic.FormView):
     success_url = reverse_lazy("song")
     form_class = SongForm
 
+    def get_initial(self):
+        initial = super().get_initial()
+        query_params = self.request.GET
+        parsed_params = dict([(k, int(v)) for k, v in query_params.items()])
+        initial.update(**parsed_params)
+        return initial
+
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
 
