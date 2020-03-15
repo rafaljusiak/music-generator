@@ -1,0 +1,30 @@
+version: '3.7'
+
+services:
+  db:
+    image: postgres:10.1-alpine
+    container_name: "${DATABASE_CONTAINER_NAME}"
+    environment:
+      POSTGRES_DB: "${DATABASE_NAME}"
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+  backend:
+    build:
+      context: .
+      dockerfile: docker/backend/Dockerfile
+    container_name: "${BACKEND_CONTAINER_NAME}"
+    command: python manage.py runserver 0.0.0.0:8000
+    environment:
+      DJANGO_SETTINGS_MODULE: "${DJANGO_SETTINGS_MODULE}"
+    volumes:
+      - .:/app
+      - ./media:/app/media
+      - ./staticfiles:/app/staticfiles
+    ports:
+      - "${BACKEND_PORT}:8000"
+    depends_on:
+      - db
+volumes:
+  static_volume:
+  media_volume:
+  pgdata:

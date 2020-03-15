@@ -1,0 +1,18 @@
+pre-commit:
+  commands:
+    pending-migrations:
+      run: docker-compose run --rm backend python manage.py makemigrations --check
+    black:
+      run: docker-compose run --rm backend black . --check
+    flake8:
+      run: docker-compose run --rm backend flake8 .
+pre-push:
+  commands:
+    pending-migrations:
+      run: docker-compose run --rm backend python manage.py makemigrations --check
+    black:
+      run: docker-compose run --rm backend black . --check
+    flake8:
+      run: docker-compose run --rm backend flake8 .
+    tests:
+      run: docker-compose run --rm pytest tests/
