@@ -1,15 +1,21 @@
 {% extends "base.html" %}
 
 {% block content %}
-    <button onclick="play();">Play</button>
+    <form action="{{ request.path }}">
+        {{ form.as_p }}
+        <button type="submit">Generate</button>
+    </form>
+
+    <hr/>
 
     <h3>Scale: {{ scale.name }}</h3>
-
     <ul>
     {% for note in track_synth %}
         <li>{{ note.note }} {{ note.time }}</li>
     {% endfor %}
     </ul>
+
+    <button onclick="play();">Play</button>
 {% endblock %}
 
 {% block script %}
