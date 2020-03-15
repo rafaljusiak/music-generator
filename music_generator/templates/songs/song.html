@@ -23,9 +23,11 @@
         function play() {
             Tone.start();
             const part = new Tone.Part(function(time, value){
-                synth.triggerAttackRelease(value.note, "8n", time, value.velocity);
+                synth.triggerAttackRelease(value.note, value.duration, time, value.velocity);
             }, {{ track_synth|safe }});
+            part.humanize = true;
             part.start();
+
             Tone.Transport.start();
         }
     </script>
