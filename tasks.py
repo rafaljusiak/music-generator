@@ -66,3 +66,8 @@ def add_dep(c, dependency):
 @task
 def add_dev_dep(c, dependency):
     c.run("docker-compose run --rm backend poetry add -D " + dependency)
+
+
+@task
+def update_dep(c, dependencies):
+    c.run("docker-compose run --rm backend poetry update " + dependencies)
