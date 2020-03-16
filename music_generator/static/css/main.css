@@ -1,3 +1,18 @@
 body {
     background-color: pink;
 }
+
+div.notes-container {
+    width: 100%;
+}
+
+div.note {
+    width: 45px;
+    display: inline-block;
+    text-align: center;
+    overflow: hidden;
+}
+
+div.note-played {
+    color: white;
+}

@@ -9,11 +9,15 @@
     <hr/>
 
     <h3>Scale: {{ scale.name }}</h3>
-    <ul>
+    <p>Tempo: {{ tempo }}</p>
+    <div class="notes-container">
     {% for note in track_synth %}
-        <li>{{ note.note }} {{ note.duration }}</li>
+        <div class="note">
+            {{ note.note }}
+            {{ note.duration }}
+        </div>
     {% endfor %}
-    </ul>
+    </div>
 
     <button onclick="play();">Play</button>
 {% endblock %}
