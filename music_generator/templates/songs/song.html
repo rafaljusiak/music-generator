@@ -1,38 +1,84 @@
 {% extends "base.html" %}
 
 {% block content %}
-    <form action="{{ request.path }}">
-        {{ form.as_p }}
-        <button type="submit">Generate</button>
-    </form>
+    <div class="container">
+        <h1>The best music generator ever</h1>
 
-    <hr/>
+        <section id="song-form-section">
+            <form action="{{ request.path }}">
+                {{ form.as_p }}
+                <button id="generate-button" type="submit">Generate</button>
+            </form>
+        </section>
 
-    <h3>Scale: {{ scale.name }}</h3>
-    <p>Tempo: {{ tempo }}</p>
-    <div class="notes-container">
-    {% for note in track_synth %}
-        <div class="note">
-            {{ note.note }}
-            {{ note.duration }}
-        </div>
-    {% endfor %}
+        <hr/>
+
+        <section id="song-section">
+            <h3>Scale: {{ scale.name }}</h3>
+            <p>Tempo: {{ tempo }}</p>
+
+            <label for="select-instrument">Instrument: </label>
+            <select id="select-instrument">
+            </select>
+
+            <div class="notes-container">
+            {% for note in track_synth %}
+                <div class="note">
+                    <span>{{ note.note }}</span>
+                    <span>{{ note.duration }}</span>
+                </div>
+            {% endfor %}
+            </div>
+
+            <button id="play-button">Play</button>
+        </section>
     </div>
-
-    <button onclick="play();">Play</button>
 {% endblock %}
 
 {% block script %}
     <script>
-        function play() {
-            Tone.start();
-            const part = new Tone.Part(function(time, value){
-                synth.triggerAttackRelease(value.note, value.duration, time, value.velocity);
-            }, {{ track_synth|safe }});
-            part.humanize = true;
-            part.start();
 
-            Tone.Transport.start();
-        }
+    const $instrumentSelect = $("select#select-instrument");
+    const $playButton = $("#play-button");
+    const $generateButton = $("#generate-button");
+    const $notes = $("div.note");
+    const notesCount = $notes.length;
+
+    function play(instrument) {
+        let noteCounter = 0;
+        instrument.toDestination();
+        Tone.start();
+        const part = new Tone.Part(function(time, value) {
+            $($notes[noteCounter]).addClass("note-played");
+            $($notes[noteCounter - 1]).removeClass("note-played");
+
+            instrument.triggerAttackRelease(value.note, value.duration, time, value.velocity);
+            noteCounter += 1;
+
+            if (noteCounter === notesCount) {
+                setTimeout(function() {
+                    $($notes[noteCounter - 1]).removeClass("note-played");
+                }, 1500);
+            }
+        }, {{ track_synth|safe }});
+        part.humanize = true;
+        part.start();
+
+        Tone.Transport.start();
+    }
+
+    $(document).ready(function() {
+        $.each(instruments, function(key, value) {
+            $instrumentSelect.append(
+                '<option value=' + key + '>' + value + '</option>'
+            );
+        });
+
+        $playButton.click(function(e) {
+            const instrumentName = $instrumentSelect.val();
+            play(instruments[instrumentName]);
+        });
+    });
+
     </script>
 {% endblock %}
