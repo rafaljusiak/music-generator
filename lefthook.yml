@@ -1,7 +1,5 @@
 pre-commit:
   commands:
-    pending-migrations:
-      run: docker-compose run --rm backend python manage.py makemigrations --check
     black:
       glob: "*.py"
       run: docker-compose run --rm backend black {staged_files} --check
