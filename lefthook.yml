@@ -3,14 +3,12 @@ pre-commit:
     pending-migrations:
       run: docker-compose run --rm backend python manage.py makemigrations --check
     black:
-      run: docker-compose run --rm backend black . --check
+      glob: "*.py"
+      run: docker-compose run --rm backend black {staged_files} --check
     flake8:
-      run: docker-compose run --rm backend flake8 .
+      glob: "*.py"
+      run: docker-compose run --rm backend flake8 {staged_files}
 pre-push:
   commands:
     pending-migrations:
       run: docker-compose run --rm backend python manage.py makemigrations --check
-    black:
-      run: docker-compose run --rm backend black . --check
-    flake8:
-      run: docker-compose run --rm backend flake8 .
