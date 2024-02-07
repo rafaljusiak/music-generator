@@ -6,7 +6,7 @@ authors = ["Rafal Jusiak <kontakt@rafaljusiak.pl>"]
 
 [tool.poetry.dependencies]
 python = "^3.6"
-django = "<3.0"
+django = "<4.0"
 python-env-loader = "^0.0.1"
 ipython = "^7.11.1"
 psycopg2-binary = "^2.8.4"
